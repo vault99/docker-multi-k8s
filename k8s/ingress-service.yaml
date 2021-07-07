@@ -11,8 +11,8 @@ metadata:
 spec:
   tls:
     - hosts:
-        - khownar.com
-        - www.khownar.com
+      - khownar.com
+      - www.khownar.com
       secretName: khownar-com
   rules:
     - host: khownar.com
