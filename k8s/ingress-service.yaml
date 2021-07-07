@@ -11,41 +11,29 @@ metadata:
 spec:
   tls:
     - hosts:
-      - khownar.com
-      - www.khownar.com
+        - khownar.com
+        - www.khownar.com
       secretName: khownar-com
   rules:
     - host: khownar.com
       http:
         paths:
           - path: /?(.*)
-            pathType: Prefix
             backend:
-              service:
-                name: client-clusterip-service
-                port:
-                  number: 3000
+              serviceName: client-clusterip-service
+              servicePort: 3000
           - path: /api/?(.*)
-            pathType: Prefix
             backend:
-              service:
-                name: server-clusterip-service
-                port:
-                  number: 5000
+              serviceName: server-clusterip-service
+              servicePort: 5000
     - host: www.khownar.com
       http:
         paths:
           - path: /?(.*)
-            pathType: Prefix
             backend:
-              service:
-                name: client-clusterip-service
-                port:
-                  number: 3000
+              serviceName: client-clusterip-service
+              servicePort: 3000
           - path: /api/?(.*)
-            pathType: Prefix
             backend:
-              service:
-                name: server-clusterip-service
-                port:
-                  number: 5000
+              serviceName: server-clusterip-service
+              servicePort: 5000
