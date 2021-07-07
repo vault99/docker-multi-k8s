@@ -6,9 +6,34 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /$1
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
+  tls:
+    - hosts:
+        - khownar.com
+        - www.khownar.com
+      secretName: khownar-com
   rules:
-    - http:
+    - host: khownar.com
+      http:
+        paths:
+          - path: /?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: client-clusterip-service
+                port:
+                  number: 3000
+          - path: /api/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: server-clusterip-service
+                port:
+                  number: 5000
+    - host: www.khownar.com
+      http:
         paths:
           - path: /?(.*)
             pathType: Prefix
